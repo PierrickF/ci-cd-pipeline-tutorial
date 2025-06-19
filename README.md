@@ -3,7 +3,7 @@
 1. [Introduction](#introduction)
 2. [The Application](#the-application)
 3. [Versioning](#versioning)
-4. [Automatic Testing](#automatic-testing)
+4. [Automated Testing](#automated-testing)
 
 ---
 
@@ -38,7 +38,7 @@ git clone https://github.com/PierrickF/flask-calc.git
 
 You can look at the `README.md` file to get it running.
 
-Note how the Python code in `app.py` has been organized to that we could run
+Note how the Python code in `app.py` has been organized so that we could run
 some unit tests:
 ```python
 def add(num1, num2):
@@ -96,7 +96,7 @@ git push origin main
 
 ---
 
-# Automatic Testing
+# Automated Testing
 
 While we could have ran the tests locally on our machine, let's automate them
 with GitHub Actions instead.
@@ -109,15 +109,10 @@ Either pick from the list or select `New workflow`, and choose `Python applicati
 The selected job will be saved as code in the repository in the
 `.github/workflows/` directory:
 ```yaml
-# This workflow will install Python dependencies, run tests and lint with a single version of Python
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
-
-name: Build and test
+name: Test Python Code
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
     branches: [ "main" ]
 
 permissions:
@@ -128,7 +123,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Check out the repo
+      uses: actions/checkout@v4
 
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
